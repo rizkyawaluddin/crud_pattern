@@ -27,36 +27,11 @@ function initialize(sequelize,DataTypes){
 			allowNull: false,
 			field: 'email'
 		},
-		emailVerifiedAt: {
-			type: DataTypes.DATE,
-			allowNull: true,
-			field: 'email_verified_at'
-		},
 		password: {
 			type: DataTypes.STRING(255),
 			allowNull: false,
 			field: 'password'
 		},
-		rememberToken: {
-			type: DataTypes.STRING(100),
-			allowNull: true,
-			field: 'remember_token'
-		},
-		createdAt: {
-			type: DataTypes.DATE,
-			allowNull: true,
-			field: 'created_at'
-		},
-		updatedAt: {
-			type: DataTypes.DATE,
-			allowNull: true,
-			field: 'updated_at'
-		},
-		mobile: {
-			type: DataTypes.STRING(45),
-			allowNull: true,
-			field: 'mobile'
-		}
     }, {
         sequelize,
     freezeTableName: true,

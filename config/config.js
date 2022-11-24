@@ -9,8 +9,9 @@ var config = {
 		connectionLimit: 100,
 		host: 'localhost',
 		username: 'root',
-		password: 'root',
-		database: 'test'
+		password: '',
+		database: 'crud_api',
+		dialect: 'mysql'
 	}
 }
 

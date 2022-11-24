@@ -36,3 +36,23 @@ module.exports.fetchIncluded = (conditions,Includes) => {
         return "error";
     });
 };
+
+module.exports.insert = (req) => {
+    return this.getModel().create(req).then(Result => {
+        return Result;
+    }).catch(err => {
+        console.error("Unable to insert data", err);
+        return "error";
+    })
+}
+
+module.exports.updateModel = (conditions) => {
+    return this.getModel().update({
+	  where: conditions 
+	}).then(Result => {
+      return Result;
+    }).catch(err => {
+        console.error('Unable to Fetch', err);
+        return "error";
+    });
+};

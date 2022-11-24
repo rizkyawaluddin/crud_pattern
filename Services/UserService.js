@@ -1,25 +1,42 @@
-/***
- * put repository inside only to prevent conflict
- */
+var UserRepository = require('../Repositories/UserRepository');
+var ProductModel = require('../Models/Product')
 
-var UserModel = require('../Models/User');
-var ProductModel = require('../Models/Product');
-var UserLoginModel = require('../Models/UserLogin');
-
-module.exports.fetchUser = (id) => {
-    var UserRepository = require('../Repositories/UserRepository');
-    UserModel.hasOne(ProductModel, {foreignKey: 'userid',sourceKey: 'id'});
-    return UserRepository.fetchIncluded(id,[ProductModel]);
+async function createUsers(req, res) {
+    try {
+        const addUsers = await UserRepository.insert(req.body)
+        console.log(req.body);
+        return addUsers
+    } catch (error) {
+        console.log(error);
+        return error
+    }
 }
 
-module.exports.authenticate = (params) => {    
-    var UserLoginRepository = require('../Repositories/UserLoginRepository');    
-    UserLoginModel.hasOne(UserModel, {foreignKey: 'id',sourceKey:'userid'});
-    return UserLoginRepository.fetchIncluded({pin:params.pin},[
-        {
-            model: UserModel,
-            where: {
-                mobile: params.mobile
-            }
-        }]);
+async function getUsers(req, res) {
+    try {
+        const dataUsers = await UserRepository.getAllUser({
+            include: [{model: ProductModel}]
+        });
+
+        return dataUsers;
+
+    } catch(error) {
+        console.log(error)
+        return error
+    }
 }
+
+async function getUserById(req, res) {
+    try {
+        const dataUser = await UserRepository.fetchOne(req);
+
+        return dataUser
+
+    } catch (error) {
+        console.log();
+        return error
+    }
+}
+module.exports.createUsers = createUsers;
+module.exports.getUsers = getUsers;
+module.exports.getUserById = getUserById;

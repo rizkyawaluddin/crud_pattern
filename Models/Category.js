@@ -1,15 +1,15 @@
 /*** Table Name ***/
-var tableName = 'product';
+var tableName = 'category';
 
 /*** Same for all Models */
 const Base = require('./Base');
-class Product extends Base.Model {}
+class Category extends Base.Model {}
 const sequelize = Base.sequelize;
 const DataTypes = Base.Sequelize;
 
 /*** Model Structure Define  Here */
 function initialize(sequelize,DataTypes){
-    return Product.init({
+    return Category.init({
 		id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -17,22 +17,11 @@ function initialize(sequelize,DataTypes){
 			autoIncrement: true,
 			field: 'id'
 		},
-		productname: {
-			type: DataTypes.STRING(255),
+		category_name: {
+			type: DataTypes.STRING(45),
 			allowNull: true,
-			field: 'productname'
+			field: 'category_name'
 		},
-		desc: {
-			type: DataTypes.STRING(255),
-			allowNull: true,
-			field: 'desc'
-		},
-		user_id: {
-			type: DataTypes.INTEGER(11),
-			allowNull: true,
-			field: 'user_id'
-		}
-
     }, {
         sequelize,
     freezeTableName: true,
@@ -41,6 +30,6 @@ function initialize(sequelize,DataTypes){
     });
 }
 
-var ProductModel = initialize(sequelize,DataTypes);
+var CategoryModel = initialize(sequelize,DataTypes);
 /*** exported for usage */
-module.exports = ProductModel;
+module.exports = CategoryModel;

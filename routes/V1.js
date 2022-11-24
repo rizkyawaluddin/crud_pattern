@@ -16,9 +16,9 @@ var router = express.Router();
 /**
 *** Controllers
 **/
-var BaseController = require('../Controllers/BaseController');
 var UserController = require('../Controllers/UserController');
-var AuthController = require('../Controllers/AuthController');
+var ProductController = require('../Controllers/ProductController');
+// var CategoryController = require('../Controllers/CategoryController')
 
 /**
 *** Routes
@@ -34,9 +34,15 @@ router.all('/list', function(req, res, next) {
   res.json({'success':true, 'message':router.stack});
 });
 
-router.get('/auth', AuthController.authenticate);
-router.get('/auth/decode', AuthController.decode);// for testing only
-router.get('/user/products', UserController.products);
-router.get('/user/profile', UserController.profile);
+router.post('/user/post', UserController.userController);
+router.get('/users', UserController.getUsersController);
+// router.get('/user/:id', UserController.getUserController);
+
+router.post('/product/post', ProductController.productController);
+router.get('/products', ProductController.getProductsController);
+router.patch('/product/:id', ProductController.updateProductController);
+
+// router.post('/category/post', CategoryController.categoryController);
+
 
 module.exports = router;
