@@ -1,12 +1,17 @@
-var ProductRepository = require('../Repositories/ProductRepository')
-// const ProductModel = require('../Models/Product');
-// const BaseRepository = require('../Repositories/BaseRepository');
+var ProductRepository = require('../Repositories/ProductRepository');
+var UserModel = require('../Models/User')
 
 async function createProduct(req, res) {
     // ProductRepository.setModel(ProductModel)
     try {
-        const addProduct = await ProductRepository.insert(req.body)
-        console.log(req.body);
+        let reqBody = req.body
+        let payload ={
+            productname:reqBody.productname,
+            desc:reqBody.desc,
+            user_id:reqBody.user_id
+        }
+        const addProduct = await ProductRepository.insert(payload)
+        // console.log(req.body);  
         return addProduct
     } catch (error) {
         // console.log();
@@ -15,11 +20,13 @@ async function createProduct(req, res) {
 }
 
 async function getAllProducts() {
+    console.log('asas');
     try {
-        const dataProducts = await ProductRepository.getProducts()
+        const dataProducts = await ProductRepository.getProducts({
+            include: [{model: UserModel}]
+        });
         return dataProducts
     } catch (error) {
-        // console.log();
         return error
         
     }

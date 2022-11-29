@@ -1,11 +1,7 @@
-/*** 
- * ProductRepository 
- **/
-
- const BaseRepository = require('./BaseRepository');
- const CategoryModel = require('../Models/Category');
+const BaseRepository = require('./BaseRepository');
+const CategoryModel = require('../Models/Category');
  
- BaseRepository.setModel(CategoryModel);
+BaseRepository.setModel(CategoryModel);
 //  async function insert(req) {
 //     return RequestModel.create(req).then(Result => {
 //         return Result;
@@ -16,4 +12,4 @@
 // }
 //  module.exports.insert = insert;
 
- module.exports = BaseRepository;
+module.exports = BaseRepository;

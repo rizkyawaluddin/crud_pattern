@@ -2,7 +2,12 @@ var CategoryRepository = require('../Repositories/CategoryRepository');
 
 async function createCategory(req, res){
     try {
-        const addCategory = await CategoryRepository.insert(req)
+        let reqBody = req.body
+        console.log(req.body);
+        let payload ={
+            category_name:reqBody.category_name,
+        }
+        const addCategory = await CategoryRepository.insert(payload)  
         return addCategory
     } catch (error) {
         // console.log(error);

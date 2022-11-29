@@ -1,38 +1,34 @@
 var ProductService = require('../Services/ProductService');
+const response = require('../response');
 
 async function productController(req, res) {
 	try {
 		const addProduct = await ProductService.createProduct(req)
-		return res.send({
-			'data' : 'data tersimpan luuurr',
-			'message' : 'Alhamdulillah',
-			'datalagi' : addProduct,
-		})
+        console.log('addProduct')
+        console.log(addProduct)
+		if (addProduct == null){
+            return response(res, 400, false ,'Data not found');
+        }else{
+            return response(res, 200, true ,'Success Send Request To Product', addProduct);
+        }
 	} catch (error) {
 		console.log(error);
-		res.send ({
-			'data':'not Found',
-			'message':'server error'
-		})
+        return response(res, 400, false ,'Failed Send Request To Profile')
 	}
 }
 
 async function getProductsController(req,res)  {
     try{
         const responseProduct = await ProductService.getAllProducts();
-
-        return res.send({
-            'message' : 'Success',
-            'data' : responseProduct,
-            'status' :200
-        })
+        if (responseProduct == null){
+            return response(res, 400, false ,'Data not found');
+        }else{
+            return response(res, 200, true ,'Success Send Request To Product', responseProduct);
+        }
 
     }catch(error){
         console.log(error)
-        res.send({
-            status: 'failed',
-            message: 'server error'
-        })
+        return response(res, 400, false ,'Failed Send Request To Product')
     }
 }
 

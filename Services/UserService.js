@@ -3,7 +3,7 @@ var ProductModel = require('../Models/Product')
 
 async function createUsers(req, res) {
     try {
-        const addUsers = await UserRepository.insert(req.body)
+        const addUsers = await UserRepository.created(req)
         console.log(req.body);
         return addUsers
     } catch (error) {
@@ -12,7 +12,7 @@ async function createUsers(req, res) {
     }
 }
 
-async function getUsers(req, res) {
+async function getUsers() {
     try {
         const dataUsers = await UserRepository.getAllUser({
             include: [{model: ProductModel}]

@@ -18,7 +18,8 @@ var router = express.Router();
 **/
 var UserController = require('../Controllers/UserController');
 var ProductController = require('../Controllers/ProductController');
-// var CategoryController = require('../Controllers/CategoryController')
+var CategoryController = require('../Controllers/CategoryController')
+var ProfileConntroller = require('../Controllers/ProfileController');
 
 /**
 *** Routes
@@ -40,9 +41,12 @@ router.get('/users', UserController.getUsersController);
 
 router.post('/product/post', ProductController.productController);
 router.get('/products', ProductController.getProductsController);
-router.patch('/product/:id', ProductController.updateProductController);
+// router.patch('/product/:id', ProductController.updateProductController);
 
-// router.post('/category/post', CategoryController.categoryController);
+router.post('/category/post', CategoryController.categoryController);
+
+router.post('/profile/post', ProfileConntroller.userController);
+router.get('/profiles', ProfileConntroller.getProfilesController)
 
 
 module.exports = router;

@@ -1,17 +1,35 @@
-/*** 
- * ProductRepository 
- **/
-
-const BaseRepository = require('./BaseRepository');
+const ProductRepository = require('./BaseRepository');
 const ProductModel = require('../Models/Product');
+var UserModel = require('../Models/User');
+// const { get } = require('../routes');
+
+module.exports.insert = (req) => {
+    return ProductModel.create(req).then(Result => {
+        return Result;
+    }).catch(err => {
+        console.error("Unable to insert data", err);
+        return "error";
+    })
+}
+// async function created(req,res) {
+//     try {
+//         const reqBody = await UserModel.create(req.body);
+//         console.log(req.body);
+//         return reqBody
+//     } catch (error) {
+//         return error
+//     }
+// }
 
 
-BaseRepository.setModel(ProductModel);
-module.exports.getProducts = (user_id) => {
-    var ProductRepository = require('../Repositories/ProductRepository');
-    ProductModel.belongsTo(UserModel, {foreignKey: 'user_id',targetKey: 'id'})
-    UserModel.hasMany(ProductModel, {foreignKey: 'user_id',sourceKey: 'id'});
-    return ProductRepository.fetchIncluded({id: user_id},[{model: UserModel}])}
+function getProducts () {
+    ProductRepository.setModel(ProductModel);
+    ProductModel.hasMany(UserModel, {foreignKey: 'id',sourceKey: 'user_id'});
+
+    // ProductModel.belongsTo(UserModel, {foreignKey: 'user_id',targetKey: 'id'})
+    // UserModel.belongsTo(ProductModel, {foreignKey: 'id',sourceKey: 'user_id'});
+    return ProductRepository.fetchIncluded("",[{model: UserModel}])
+}
 
 
 
@@ -34,9 +52,12 @@ const updateUse = async (req,res) => {
 }
 
 
-module.exports = BaseRepository;
-// module.exports.getProducts = getProducts;
 module.exports.updateUse = updateUse;
+module.exports.getProducts = getProducts;
+module.exports.ProductRepository = ProductRepository
+
+
+
 
 // const getProducts = async() => {
 //     try {
